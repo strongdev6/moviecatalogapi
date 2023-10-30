@@ -6,7 +6,7 @@ import uuid
 class Movies(BaseModel):
     id: uuid.UUID = Field(default_factory=uuid.uuid4)
     title: str
-    releaseDate: date
+    releaseDate: date  # format "YYYY-MM-DD" in payload
     director: str
     rating: int
     genre: str
