@@ -1,8 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+import uuid
 
 
 class Movies(BaseModel):
-    id: int
+    id: uuid.UUID = Field(default_factory=uuid.uuid4)
     title: str
     releaseYear: int
     director: str
