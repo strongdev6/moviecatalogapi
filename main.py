@@ -1,3 +1,5 @@
+import uuid
+
 from fastapi import FastAPI
 from model import Movies
 
@@ -20,7 +22,7 @@ async def get_movie():
 
 # get a single movie listing
 @app.get("/movies/{movie_id}")
-async def get_movie(movie_id: int):
+async def get_movie(movie_id: uuid.UUID):
     try:
         return {"movie": movies[movies.index(movie_id)]}
     except:
@@ -31,14 +33,14 @@ async def get_movie(movie_id: int):
 @app.post("/movies")
 async def create_movie(movie: Movies):
     movies.append(movie)
-    return {"message": "Movie was created"}
+    return {"message": f"Movie titled '{movie.title}' created"}
 
 
 # delete a movie listing
 @app.delete("/movies/{movie_id}")
-async def delete_movie(movie_id: int):
+async def delete_movie(movie_id: uuid.UUID):
     for movie in movies:
         if movie.id == movie_id:
             movies.remove(movie)
-            return {"message": "Movie was deleted"}
+            return {"message": f"Movie title '{movie.title}' was deleted"}
     return {"message": "No movie found"}
